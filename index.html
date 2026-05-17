@@ -185,6 +185,72 @@
       font-weight: 600;
     }
 
+    /* ── Certificates ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .cert-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .cert-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    }
+    .cert-card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .cert-card .cert-label {
+      padding: 8px 10px;
+      font-size: .8rem;
+      color: var(--sub);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .cert-group-label {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--sub);
+      margin-bottom: 10px;
+    }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.85);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: 8px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.5);
+    }
+    #lightbox-close {
+      position: fixed;
+      top: 20px; right: 28px;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 600px) {
       header h1 { font-size: 2rem; }
@@ -334,6 +400,56 @@
     </ul>
   </section>
 
+  <!-- Certificates -->
+  <section>
+    <h2>獎項證明</h2>
+
+    <div class="cert-group-label">碩士</div>
+    <div class="cert-grid">
+      <div class="cert-card" onclick="openLightbox('certificates/ai-poster.jpg')">
+        <img src="certificates/ai-poster.jpg" alt="AI海報競賽" />
+        <div class="cert-label">數據科學與人工智慧<br>海報論文競賽 佳作</div>
+      </div>
+      <div class="cert-card" onclick="openLightbox('certificates/xingli-award.jpg')">
+        <img src="certificates/xingli-award.jpg" alt="興理科學獎" />
+        <div class="cert-label">114 學年度<br>興理科學獎 智育類</div>
+      </div>
+      <div class="cert-card" onclick="openLightbox('certificates/aiact2025.jpg')">
+        <img src="certificates/aiact2025.jpg" alt="AIACT 2025" />
+        <div class="cert-label">AIACT 2025<br>國際研討會論文發表</div>
+      </div>
+    </div>
+
+    <div class="cert-group-label" style="margin-top:24px;">大學</div>
+    <div class="cert-grid">
+      <div class="cert-card" onclick="openLightbox('certificates/project-award.jpg')">
+        <img src="certificates/project-award.jpg" alt="專題佳作獎" />
+        <div class="cert-label">專題佳作獎</div>
+      </div>
+      <div class="cert-card" onclick="openLightbox('certificates/ncpc.jpg')">
+        <img src="certificates/ncpc.jpg" alt="NCPC" />
+        <div class="cert-label">NCPC<br>程式競賽參賽</div>
+      </div>
+      <div class="cert-card" onclick="openLightbox('certificates/learning-expo.jpg')">
+        <img src="certificates/learning-expo.jpg" alt="學習成果展" />
+        <div class="cert-label">2024 學生<br>學習成果展</div>
+      </div>
+      <div class="cert-card" onclick="openLightbox('certificates/security1.jpg')">
+        <img src="certificates/security1.jpg" alt="資安工作坊" />
+        <div class="cert-label">資安工作坊 (1)</div>
+      </div>
+      <div class="cert-card" onclick="openLightbox('certificates/security2.jpg')">
+        <img src="certificates/security2.jpg" alt="資安工作坊" />
+        <div class="cert-label">資安工作坊 (2)</div>
+      </div>
+      <div class="cert-card" onclick="openLightbox('certificates/data-competition.jpg')">
+        <img src="certificates/data-competition.jpg" alt="數據驅動創意應用大賽" />
+        <div class="cert-label">數據驅動<br>創意應用大賽</div>
+      </div>
+    </div>
+
+  </section>
+
   <!-- Languages -->
   <section>
     <h2>Languages</h2>
@@ -344,6 +460,24 @@
   </section>
 
 </main>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.getElementById('lightbox-img').src = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
 
 </body>
 </html>
